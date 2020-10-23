@@ -85,6 +85,9 @@
 
       // Get seconds from date
       const seconds = now.getSeconds();
+      if (seconds === 59) {
+        secondHand.style.transition = 'none'; // Temporarily takes off transition so it doesn't rotate back to 90deg
+      }
       // Calculate seconds in degrees
       const secondsDegrees = ((seconds / 60) * 360) + 90;
       // Transform second-hand div according to secondsDegrees
@@ -92,6 +95,9 @@
 
       // Get minutes from date
       const minutes = now.getMinutes();
+      if (minutes === 59 && seconds === 59) {
+        minHand.style.transition = 'none'; // Temporarily takes off transition so it doesn't rotate back to 90deg
+      }
       // Calculate minutes in degrees
       const minutesDegrees = ((minutes / 60) * 360) + 90;
       // Transform min-hand div according to minutesDegrees
@@ -99,8 +105,11 @@
 
       // Get hour from date
       const hours = now.getHours();
+      if ((hours === 11 && minutes === 59 && seconds === 59) || hours === 23 && minutes === 59 && seconds === 59) {
+        hourHand.style.transition = 'none'; // Temporarily takes off transition so it doesn't rotate back to 90deg
+      }
       // Calculate hours in degrees
-      const hoursDegrees = ((hours / 24) * 360) + 90;
+      const hoursDegrees = ((hours / 12) * 360) + 90;
       // Transform hour-hand div according to hoursDegrees
       hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
       console.log(hours + ":" + minutes + ":" + seconds)
