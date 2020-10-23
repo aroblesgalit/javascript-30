@@ -73,10 +73,10 @@
   </style>
 
   <script>
-    // Target the second-hand div
+    // Target the hand divs
     const secondHand = document.querySelector('.second-hand');
-    // Target the min-hand div
     const minHand = document.querySelector('.min-hand');
+    const hourHand = document.querySelector('.hour-hand');
 
     // Get the value for each hand and calculate corresponding degrees
     function setDate() {
@@ -97,7 +97,13 @@
       // Transform min-hand div according to minutesDegrees
       minHand.style.transform = `rotate(${minutesDegrees}deg)`;
 
-      console.log(minutes + ":" + seconds)
+      // Get hour from date
+      const hours = now.getHours();
+      // Calculate hours in degrees
+      const hoursDegrees = ((hours / 24) * 360) + 90;
+      // Transform hour-hand div according to hoursDegrees
+      hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
+      console.log(hours + ":" + minutes + ":" + seconds)
     }
 
     // Call setDate every second
