@@ -136,11 +136,13 @@
     // Select the panels
     const panels = document.querySelectorAll('.panel');
 
+    // Toggle open class
     function toggleOpen() {
       toggleClose();
       this.classList.toggle('open');
     }
 
+    // Toggle active class
     function toggleActive(e) {
       // console.log(e.propertyName);
       if (e.propertyName.includes('flex')) {
@@ -148,11 +150,14 @@
       }
     }
 
+    // Remove open class in all panels
     function toggleClose() {
       panels.forEach(panel => panel.classList.remove('open'));
     }
 
+    // Listen to click event on panel and toggle open class
     panels.forEach(panel => panel.addEventListener('click', toggleOpen));
+    // Listen to a transition end event on panel and toggle open-active class
     panels.forEach(panel => panel.addEventListener('transitionend', toggleActive));
 
   </script>
