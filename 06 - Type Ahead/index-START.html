@@ -21,22 +21,27 @@
 
     const cities = [];
 
+    // Fetch cities and push in to cities array
     fetch(endpoint)
       .then(blob => blob.json())
       .then(data => cities.push(...data));
 
+    // Function to find matches in the cities array based on search
     function findMatches(wordToMatch, cities) {
       return cities.filter(place => {
         // Figure out if the city or state matches the search
+        // Create a regex with the wordToMatch string
         const regex = new RegExp(wordToMatch, 'gi');
         return (place.city.match(regex) || place.state.match(regex));
       });
     };
 
+    // Function to add commas to population value
     function numberWithCommas(x) {
       return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     }
 
+    // Function to display matches as list items
     function displayMatches() {
       const matchArray = findMatches(this.value, cities);
       const html = matchArray.map(place => {
@@ -53,9 +58,11 @@
       suggestions.innerHTML = html;
     }
 
+    // Target the search input and the unordered list elements
     const searchInput = document.querySelector('.search');
     const suggestions = document.querySelector('.suggestions');
 
+    // Listen to change or keyup events and display matches
     searchInput.addEventListener('change', displayMatches);
     searchInput.addEventListener('keyup', displayMatches);
 
