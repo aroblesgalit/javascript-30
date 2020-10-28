@@ -38,13 +38,17 @@
       if (!isDrawing) return; // Stops the function from running when they are not moused down
 
       ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`; // Color of stroke
-      
+      ctx.lineWidth = hue;
+
       ctx.beginPath(); // Start a path
       ctx.moveTo(lastX, lastY); // Point start
       ctx.lineTo(e.offsetX, e.offsetY); // Set coordinates of point end
       ctx.stroke(); // Draws the line
       [lastX, lastY] = [e.offsetX, e.offsetY]; // Update lastX and lastY
       hue++; // Increment color
+      if (hue >= 360) {
+        hue = 0;
+      }
     }
 
     canvas.addEventListener('mousedown', (e) => {
