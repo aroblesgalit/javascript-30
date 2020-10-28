@@ -23,7 +23,8 @@
     ctx.strokeStyle = '#BADA55';
     ctx.lineJoin = 'round';
     ctx.lineCap = 'round';
-    ctx.lineWidth = '40'
+    ctx.lineWidth = 40;
+    ctx.globalCompositeOperation = 'multiply'; // Blend mode
 
     // Create variable for indicating when it's ok to draw on canvas
     let isDrawing = false;
@@ -54,7 +55,7 @@
 
       // When linewidth equals 100 or 1, then change direction
       // Increment/decrement accordingly
-      if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
+      if (ctx.lineWidth >= 100 || ctx.lineWidth <= 5) {
         direction = !direction;
       }
       if (direction) {
