@@ -7,9 +7,9 @@
 </head>
 
 <body>
-  
+
   <canvas id="draw" width="800" height="800"></canvas>
-  
+
   <script>
 
     // Target canvas
@@ -33,11 +33,20 @@
     // Draw function
     function draw(e) {
       if (!isDrawing) return; // Stops the function from running when they are not moused down
-      console.log(e);
+      
+      ctx.beginPath(); // Start a path
+      ctx.moveTo(lastX, lastY); // Point start
+      ctx.lineTo(e.offsetX, e.offsetY); // Set coordinates of point end
+      ctx.stroke(); // Draws the line
+      [lastX, lastY] = [e.offsetX, e.offsetY];
     }
 
+    canvas.addEventListener('mousedown', (e) => {
+      isDrawing = true;
+      [lastX, lastY] = [e.offsetX, e.offsetY]; // Set coordinates of point start
+    });
+
     canvas.addEventListener('mousemove', draw);
-    canvas.addEventListener('mousedown', () => isDrawing = true);
     canvas.addEventListener('mouseup', () => isDrawing = false);
     canvas.addEventListener('mouseout', () => isDrawing = false);
 
