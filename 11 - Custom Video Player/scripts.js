@@ -1,9 +1,11 @@
+// Player
+const player = document.querySelector('.player');
 // Video
 const video = document.querySelector('.player__video');
 // Play button
 const playBtn = document.querySelector('.player__button');
 // Progress div
-const progressDiv = document.querySelector('.progress'); 
+const progressDiv = document.querySelector('.progress');
 // Progress bar
 const progressBar = document.querySelector('.progress__filled');
 // Rewind button
@@ -14,6 +16,8 @@ const skip = document.querySelector('.player__button[data-skip="25"]');
 const volumeSlider = document.querySelector('.player__slider[name="volume"]');
 // Playback rate slider
 const playbackRateSlider = document.querySelector('.player__slider[name="playbackRate"]');
+// Full screen button
+const fullscreenBtn = document.querySelector('.fullscreen');
 
 // Click events on video and play button
 playBtn.addEventListener('click', playVid);
@@ -40,6 +44,9 @@ volumeSlider.addEventListener('mousemove', setVolume);
 // Change and mousemove events on playback rate slider
 playbackRateSlider.addEventListener('change', setPlaybackRate);
 playbackRateSlider.addEventListener('mousemove', setPlaybackRate);
+
+// Click event on fullscreen button
+fullscreenBtn.addEventListener('click', updateSize);
 
 // Play video
 function playVid() {
@@ -89,4 +96,33 @@ function updateProgressBar() {
 function scrub(e) {
     const scrubTime = (e.offsetX / progressDiv.offsetWidth) * video.duration;
     video.currentTime = scrubTime;
+}
+
+// Update size of video
+function updateSize() {
+    if (
+        document.fullscreenElement ||
+        document.webkitFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.msFullscreenElement
+    ) {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) { /* Safari */
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) { /* IE11 */
+            document.msExitFullscreen();
+        }
+        fullscreenBtn.innerHTML = '⛶';
+    } else {
+        // player.requestFullscreen();
+        if (player.requestFullscreen) {
+            player.requestFullscreen();
+        } else if (player.webkitRequestFullscreen) { /* Safari */
+            player.webkitRequestFullscreen();
+        } else if (player.msRequestFullscreen) { /* IE11 */
+            player.msRequestFullscreen();
+        }
+        fullscreenBtn.innerHTML = '✕';
+    }
 }
