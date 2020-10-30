@@ -51,14 +51,14 @@
     // comments.splice(index, 1);
     
     // Create a new array
-    const newComments = [
-      ...comments.slice(0, index),
-      ...comments.slice(index + 1)
-    ];
+    // const newComments = [
+    //   ...comments.slice(0, index),
+    //   ...comments.slice(index + 1)
+    // ];
+    const newComments = [...comments];
+    newComments.splice(index, 1);
     console.table(comments);
     console.table(newComments);
-
-
 
   </script>
 </body>

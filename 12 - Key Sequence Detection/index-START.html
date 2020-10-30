@@ -1,12 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Key Detection</title>
   <script type="text/javascript" src="https://www.cornify.com/js/cornify.js"></script>
 </head>
+
 <body>
-<script>
-</script>
+  <script>
+    // Array for all pressed keys
+    const pressed = [];
+    // What we are looking for
+    const secretCode = 'wesbos';
+
+    // Event listener for keys pressed
+    window.addEventListener('keyup', (e) => {
+      // Add keys to pressed array
+      pressed.push(e.key);
+      // Limit to length of 6
+      pressed.splice(-secretCode.length - 1, pressed.length - secretCode.length);
+      // Check if array contains secretCode
+      if (pressed.join('').includes(secretCode)) {
+        // Add a random unicorn or rainbow graphic
+        cornify_add(); // Function from "https://www.cornify.com/js/cornify.js"
+      }
+    });
+
+  </script>
 </body>
+
 </html>
