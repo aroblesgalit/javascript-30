@@ -8,6 +8,8 @@ const progressBar = document.querySelector('.progress__filled');
 const rewind = document.querySelector('.player__button[data-skip="-10"]');
 // Skip 25 seconds button
 const skip = document.querySelector('.player__button[data-skip="25"]');
+// Volume slider
+const volumeSlider = document.querySelector('.player__slider[name="volume"]');
 
 // Click events on video and play button
 playBtn.addEventListener('click', playVid);
@@ -16,6 +18,10 @@ video.addEventListener('click', playVid);
 // Click event on rewind and skip
 rewind.addEventListener('click', rewindVid);
 skip.addEventListener('click', skipVidAhead);
+
+// Change and mousemove events on volume slider
+volumeSlider.addEventListener('change', setVolume);
+volumeSlider.addEventListener('mousemove', setVolume);
 
 // Play video
 function playVid() {
@@ -44,4 +50,9 @@ function skipVidAhead() {
     } else {
         video.currentTime += 25;
     }
+}
+
+// Set volume
+function setVolume() {
+    video.volume = volumeSlider.value;
 }
