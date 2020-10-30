@@ -10,6 +10,8 @@ const rewind = document.querySelector('.player__button[data-skip="-10"]');
 const skip = document.querySelector('.player__button[data-skip="25"]');
 // Volume slider
 const volumeSlider = document.querySelector('.player__slider[name="volume"]');
+// Playback rate slider
+const playbackRateSlider = document.querySelector('.player__slider[name="playbackRate"]');
 
 // Click events on video and play button
 playBtn.addEventListener('click', playVid);
@@ -22,6 +24,10 @@ skip.addEventListener('click', skipVidAhead);
 // Change and mousemove events on volume slider
 volumeSlider.addEventListener('change', setVolume);
 volumeSlider.addEventListener('mousemove', setVolume);
+
+// Change and mousemove events on playback rate slider
+playbackRateSlider.addEventListener('change', setPlaybackRate);
+playbackRateSlider.addEventListener('mousemove', setPlaybackRate);
 
 // Play video
 function playVid() {
@@ -55,4 +61,9 @@ function skipVidAhead() {
 // Set volume
 function setVolume() {
     video.volume = volumeSlider.value;
+}
+
+// Set playback rate
+function setPlaybackRate() {
+    video.playbackRate = playbackRateSlider.value;
 }
