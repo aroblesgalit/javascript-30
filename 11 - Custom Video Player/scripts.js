@@ -15,7 +15,7 @@ video.addEventListener('click', playVid);
 
 // Click event on rewind and skip
 rewind.addEventListener('click', rewindVid);
-// skip.addEventListener('click', skipVidAhead);
+skip.addEventListener('click', skipVidAhead);
 
 // Play video
 function playVid() {
@@ -34,5 +34,14 @@ function rewindVid() {
         video.currentTime = 0;
     } else {
         video.currentTime -= 10;
+    }
+}
+
+// Skip ahead by 25 seconds
+function skipVidAhead() {
+    if (video.currentTime >= video.duration - 25) {
+        video.currentTime = video.duration;
+    } else {
+        video.currentTime += 25;
     }
 }
