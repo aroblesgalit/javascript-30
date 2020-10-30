@@ -4,9 +4,9 @@ const video = document.querySelector('.player__video');
 const playBtn = document.querySelector('.player__button');
 // Progress bar
 const progressBar = document.querySelector('.progress__filled');
-// Rewind 10 seconds button
+// Rewind button
 const rewind = document.querySelector('.player__button[data-skip="-10"]');
-// Skip 25 seconds button
+// Skip button
 const skip = document.querySelector('.player__button[data-skip="25"]');
 // Volume slider
 const volumeSlider = document.querySelector('.player__slider[name="volume"]');
@@ -16,6 +16,8 @@ const playbackRateSlider = document.querySelector('.player__slider[name="playbac
 // Click events on video and play button
 playBtn.addEventListener('click', playVid);
 video.addEventListener('click', playVid);
+
+video.addEventListener('timeupdate', updateProgressBar);
 
 // Click event on rewind and skip
 rewind.addEventListener('click', rewindVid);
@@ -31,7 +33,7 @@ playbackRateSlider.addEventListener('mousemove', setPlaybackRate);
 
 // Play video
 function playVid() {
-    if (playBtn.innerHTML === '►') {
+    if (video.paused) {
         video.play();
         playBtn.innerHTML = '❚❚';
     } else {
@@ -66,4 +68,9 @@ function setVolume() {
 // Set playback rate
 function setPlaybackRate() {
     video.playbackRate = playbackRateSlider.value;
+}
+
+// While video is playing update progress bar
+function updateProgressBar() {
+    progressBar.style.flexBasis = ((video.currentTime / video.duration) * 100) + '%';
 }
