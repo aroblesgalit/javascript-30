@@ -22,8 +22,12 @@ video.addEventListener('click', playVid);
 // Timeupdate event on video
 video.addEventListener('timeupdate', updateProgressBar);
 
-// Click event on progress bar
+// Click and mousemove events on progress bar
+let mousedown = false;
 progressDiv.addEventListener('click', scrub);
+progressDiv.addEventListener('mousemove', (e) => mousedown && scrub(e));
+progressDiv.addEventListener('mousedown', () => mousedown = true);
+progressDiv.addEventListener('mouseup', () => mousedown = false);
 
 // Click event on rewind and skip
 rewind.addEventListener('click', rewindVid);
