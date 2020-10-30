@@ -2,6 +2,8 @@
 const video = document.querySelector('.player__video');
 // Play button
 const playBtn = document.querySelector('.player__button');
+// Progress div
+const progressDiv = document.querySelector('.progress'); 
 // Progress bar
 const progressBar = document.querySelector('.progress__filled');
 // Rewind button
@@ -17,7 +19,11 @@ const playbackRateSlider = document.querySelector('.player__slider[name="playbac
 playBtn.addEventListener('click', playVid);
 video.addEventListener('click', playVid);
 
+// Timeupdate event on video
 video.addEventListener('timeupdate', updateProgressBar);
+
+// Click event on progress bar
+progressDiv.addEventListener('click', scrub);
 
 // Click event on rewind and skip
 rewind.addEventListener('click', rewindVid);
@@ -70,7 +76,13 @@ function setPlaybackRate() {
     video.playbackRate = playbackRateSlider.value;
 }
 
-// While video is playing update progress bar
+// Update progress bar
 function updateProgressBar() {
     progressBar.style.flexBasis = ((video.currentTime / video.duration) * 100) + '%';
+}
+
+// Scrub progress bar
+function scrub(e) {
+    const scrubTime = (e.offsetX / progressDiv.offsetWidth) * video.duration;
+    video.currentTime = scrubTime;
 }
