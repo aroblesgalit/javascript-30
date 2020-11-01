@@ -145,7 +145,7 @@
   </div>
 
   <script>
-    function debounce(func, wait = 20, immediate = true) {
+    function debounce(func, wait = 20, immediate = false) {
       var timeout;
       return function () {
         var context = this, args = arguments;
@@ -163,24 +163,31 @@
     // Select images to listen for
     const sliderImages = document.querySelectorAll('.slide-in');
 
-    // Function that runs everytime user scrolls
+    // Check if the image is halfway shown and then show it
     function checkSlide(e) {
+      // For each of the images
       sliderImages.forEach(sliderImage => {
-        // Half way through the image
+        // Get y position that's half way through the image
+        // Y position of the top + height of the window - half the height of the image
         const slideInAt = (window.scrollY + window.innerHeight) - (sliderImage.height / 2);
-        // Bottom of the image
+        // Get y position of the bottom of the image
         const imageBottom = sliderImage.offsetTop + sliderImage.height;
+        // Image is half way shown if slideInAt value is greater than the y position of the top of the image
         const isHalfShown = slideInAt > sliderImage.offsetTop;
+        // Image still in view if the y position of the top is not passed the bottom of the image
         const isNotScrolledPast = window.scrollY < imageBottom;
-        if (isHalfShown && isNotScrolledPast) {
+        // If its halfway shown and have not scrolled past it yet
+        if (isHalfShown && isNotScrolledPast) { 
+          // Add the class active
           sliderImage.classList.add('active');
         } else {
+          // otherwise, removed the class active
           sliderImage.classList.remove('active');
         }
       })
     }
 
-    // Listen for scroll event and run checkSlide wrapped in debounce()
+    // Listen for scroll event and pass the checkSlide function into the debounce function
     window.addEventListener('scroll', debounce(checkSlide));
 
   </script>
