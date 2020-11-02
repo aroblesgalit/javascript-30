@@ -40,9 +40,24 @@
       text,
       done: false
     };
+    // Add item to array
+    items.push(item);
+    // Populate list
+    populateList(items, itemsList);
     // Clear form
     this.reset();
-  }
+  };
+
+  // Function to populate list
+  function populateList(plates = [], platesList) {
+    platesList.innerHTML = plates.map((plate, i) => {
+      return `
+        <li>
+          <label for=''>${plate.text}</label>
+        </li>
+      `;
+    }).join(''); 
+  };
 
   // Hook submit event to addItem
   addItems.addEventListener('submit', addItem);
