@@ -51,7 +51,9 @@
     const addItems = document.querySelector('.add-items');
     const itemsList = document.querySelector('.plates');
     // Fetch items from localStroage
-    const items = JSON.parse(localStorage.getItem('items')) || [];
+    let items = JSON.parse(localStorage.getItem('items')) || [];
+    // Target buttons
+    const deleteBtn = document.querySelector('.delete-btn');
 
     // Add an item to array
     function addItem(e) {
@@ -96,11 +98,22 @@
       localStorage.setItem('items', JSON.stringify(items));
     };
 
+    // Function to delete all items
+    function deleteAll() {
+      if (items.length === 0) return;
+      items = [];
+      localStorage.removeItem('items');
+      populateList(items, itemsList);
+    };
+
     // Hook submit event to addItem
     addItems.addEventListener('submit', addItem);
 
     // Event delegation on itemsList
     itemsList.addEventListener('click', toggleDone);
+
+    // Hook up deleteAll to a click event
+    deleteBtn.addEventListener('click', deleteAll);
 
     // On page load, populate list
     populateList(items, itemsList);
