@@ -74,8 +74,27 @@ h2 {
   margin-top: 20px;
 }
 
-.add-items input {
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.add-items input,
+button {
   padding: 10px;
   outline: 0;
   border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.delete-btn {
+  background-color: rgb(216, 120, 120);
+}
+
+.uncheck-btn {
+  background-color: rgb(219, 219, 129);
+}
+
+.check-btn {
+  background-color: rgb(110, 196, 110);
 }
