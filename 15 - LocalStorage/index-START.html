@@ -54,6 +54,8 @@
     let items = JSON.parse(localStorage.getItem('items')) || [];
     // Target buttons
     const deleteBtn = document.querySelector('.delete-btn');
+    const uncheckBtn = document.querySelector('.uncheck-btn');
+    const checkBtn = document.querySelector('.check-btn');
 
     // Add an item to array
     function addItem(e) {
@@ -106,14 +108,25 @@
       populateList(items, itemsList);
     };
 
+    // Function to check all items
+    function checkAll() {
+      if (items.length === 0) return;
+      for (let i = 0; i < items.length; i++) {
+        items[i].done = true;
+      }
+      populateList(items, itemsList);
+      localStorage.setItem('items', JSON.stringify(items));
+    }
+
     // Hook submit event to addItem
     addItems.addEventListener('submit', addItem);
 
     // Event delegation on itemsList
     itemsList.addEventListener('click', toggleDone);
 
-    // Hook up deleteAll to a click event
+    // Hook up buttons to click event
     deleteBtn.addEventListener('click', deleteAll);
+    checkBtn.addEventListener('click', checkAll);
 
     // On page load, populate list
     populateList(items, itemsList);
