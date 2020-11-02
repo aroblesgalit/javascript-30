@@ -118,6 +118,16 @@
       localStorage.setItem('items', JSON.stringify(items));
     }
 
+    // Function to uncheck all items
+    function uncheckAll() {
+      if (items.length === 0) return;
+      for (let item of items) {
+        item.done = false;
+      }
+      populateList(items, itemsList);
+      localStorage.setItem('items', JSON.stringify(items));
+    }
+
     // Hook submit event to addItem
     addItems.addEventListener('submit', addItem);
 
@@ -127,6 +137,7 @@
     // Hook up buttons to click event
     deleteBtn.addEventListener('click', deleteAll);
     checkBtn.addEventListener('click', checkAll);
+    uncheckBtn.addEventListener('click', uncheckAll);
 
     // On page load, populate list
     populateList(items, itemsList);
