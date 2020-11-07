@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Videos</title>
 </head>
+
 <body>
   <ul class="videos">
     <li data-time="5:43">
@@ -181,7 +183,31 @@
       Video 58
     </li>
   </ul>
-<script>
-</script>
+  <script>
+
+    // Select all nodes and turn into an array
+    const timeNodes = Array.from(document.querySelectorAll('[data-time]'));
+    // or use spread operator
+    // const timeNodes = [...document.querySelectorAll('[data-time]')];
+
+    // Get seconds for each
+    const seconds = timeNodes
+      .map(node => node.dataset.time) // Map through array and get the data-time value
+      .map(timeCode => {
+        const [mins, secs] = timeCode.split(':').map(parseFloat); // Get mins and secs and convert to numbers
+        return (mins * 60) + secs; // Add up to total seconds
+      })
+      .reduce((total, vidSeconds) => total + vidSeconds) // Get total seconds of all videos
+    
+    let secondsLeft = seconds;
+    const hours = Math.floor(secondsLeft / 3600); // Get hours
+    secondsLeft = secondsLeft % 3600; // Get remainder of seconds
+    const mins = Math.floor(secondsLeft / 60); // Get minutes
+    secondsLeft = secondsLeft % 60; // Get remainder of seconds
+    
+    console.log(hours, mins, secondsLeft); // Prints 4 58 58
+
+  </script>
 </body>
+
 </html>
