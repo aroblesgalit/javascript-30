@@ -56,7 +56,6 @@ function paintToCanvas() {
 
         ctx.putImageData(pixels, 0, 0) // Put them back
 
-
     }, 16);
 }
 

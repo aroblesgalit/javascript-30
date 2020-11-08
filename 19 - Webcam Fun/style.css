@@ -26,7 +26,32 @@ canvas {
 
 .controls button {
   margin: 6px;
+  border-radius: 8px;
+  border: none;
+  padding: 10px;
   cursor: pointer;
+}
+
+.controls button:hover {
+  background-color: #FFC600;
+  background-image: none;
+}
+
+.red-effect {
+  background-color: rgb(216, 67, 67);
+}
+
+.rgb-split {
+  background-image: linear-gradient(to right, rgb(216, 67, 67), rgb(64, 143, 64), rgb(76, 76, 196));
+}
+
+.ghosting {
+  background-color: silver;
+}
+
+.reset {
+  background-color: #fff;
+  border: 1px solid #cacaca!important;
 }
 
 .photobooth {
