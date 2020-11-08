@@ -11,6 +11,15 @@ html {
   background: #ffc600;
 }
 
+video {
+  display: none;
+}
+
+canvas {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+
 .photobooth {
   background: white;
   max-width: 150rem;
