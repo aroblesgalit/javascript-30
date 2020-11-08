@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Get User Media Code Along!</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
   <div class="photobooth">
     <div class="controls">
-      <button onClick="takePhoto()">Take Photo</button>
       <div class="rgb">
         <label for="rmin">Red Min:</label>
         <input type="range" min=0 max=255 name="rmin">
@@ -30,9 +33,16 @@
         <label for="bmax">Blue Max:</label>
         <input type="range" min=0 max=255 name="bmax">
       </div>
+      <button onClick="redEffect()">Red Effect</button>
+      <button onClick="rgbSplit()">RGB Split</button>
+      <button onClick="toggleGhosting()">Ghosting</button>
+      <button onClick="reset()">None</button>
     </div>
 
     <canvas class="photo"></canvas>
+    <div class="camera-btn">
+      <button onClick="takePhoto()"><i class="fa fa-camera"></i></button>
+    </div>
     <video class="player"></video>
     <div class="strip"></div>
   </div>
@@ -42,4 +52,5 @@
   <script src="scripts.js"></script>
 
 </body>
+
 </html>

@@ -20,6 +20,15 @@ canvas {
   transform: scaleX(-1);
 }
 
+.controls {
+  display: flex;
+}
+
+.controls button {
+  margin: 6px;
+  cursor: pointer;
+}
+
 .photobooth {
   background: white;
   max-width: 150rem;
@@ -44,6 +53,30 @@ canvas {
   top: 20px;
   right: 20px;
   width:200px;
+}
+
+.camera-btn {
+  background-color: aqua;
+  text-align: center;
+  position: relative;
+  top: -70px;
+  height: 0;
+}
+
+.camera-btn button {
+  height: 60px;
+  width: 60px;
+  font-size: 32px;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  background-color: #FFC600;
+  color:#302e26;
+  opacity: 0.5;
+}
+
+.camera-btn button:hover {
+  opacity: 1;
 }
 
 /*

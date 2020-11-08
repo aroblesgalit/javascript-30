@@ -15,6 +15,11 @@ function getVideo() {
         .catch(err => console.error(`OH NO!!! ${err}`));
 }
 
+// Variables for effects
+let filter = false;
+let effect = null;
+let ghosting = false;
+
 // Take frame from video and add to canvas
 function paintToCanvas() {
     // Get width and height of video
@@ -30,11 +35,22 @@ function paintToCanvas() {
 
         // Get pixels for filter
         let pixels = ctx.getImageData(0, 0, width, height); // Take pixels out
-        
-        // pixels = redEffect(pixels); // Mess with them
-        
-        // pixels = rgbSplit(pixels); // Mess with them
-        // ctx.globalAlpha = 0.1; // Ghosting effect
+
+        // Mess with them
+        if (filter) {
+            if (effect === "redEffect") {
+                pixels = redEffect(pixels);
+            } else if (effect === "rgbSplit") {
+                pixels = rgbSplit(pixels);
+            }
+        }
+
+        // Ghosting effect
+        if (ghosting) {
+            ctx.globalAlpha = 0.1;
+        } else {
+            ctx.globalAlpha = 1;
+        }
 
         pixels = greenScreen(pixels); // Mess with them
 
@@ -61,6 +77,8 @@ function takePhoto() {
 
 // Red Effect filter
 function redEffect(pixels) {
+    filter = true;
+    effect = "redEffect";
     // Loop through pixels
     for (let i = 0; i < pixels.data.length; i += 4) {
         pixels.data[i + 0] += 100; // Red
@@ -72,6 +90,8 @@ function redEffect(pixels) {
 
 // RGB Split filter
 function rgbSplit(pixels) {
+    filter = true;
+    effect = "rgbSplit";
     // Loop through pixels
     for (let i = 0; i < pixels.data.length; i += 4) {
         pixels.data[i - 150] = pixels.data[i + 0]; // Red
@@ -79,6 +99,18 @@ function rgbSplit(pixels) {
         pixels.data[i + 150] = pixels.data[i + 2]; // Blue
     }
     return pixels;
+}
+
+// Toggle ghosting effect
+function toggleGhosting() {
+    ghosting = !ghosting;
+}
+
+// Reset effects
+function reset() {
+    filter = false;
+    effect = "";
+    ghosting = false;
 }
 
 // Green screen
@@ -104,8 +136,8 @@ function greenScreen(pixels) {
             && red <= levels.rmax
             && green <= levels.gmax
             && blue <= levels.bmax) {
-                pixels.data[i + 3] = 0; // Take it out
-            }
+            pixels.data[i + 3] = 0; // Take it out
+        }
     }
 
     return pixels;
