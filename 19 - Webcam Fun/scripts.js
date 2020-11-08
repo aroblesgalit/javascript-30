@@ -30,9 +30,13 @@ function paintToCanvas() {
 
         // Get pixels for filter
         let pixels = ctx.getImageData(0, 0, width, height); // Take pixels out
+        
         // pixels = redEffect(pixels); // Mess with them
-        pixels = rgbSplit(pixels); // Mess with them
-        ctx.globalAlpha = 0.1; // Ghosting effect
+        
+        // pixels = rgbSplit(pixels); // Mess with them
+        // ctx.globalAlpha = 0.1; // Ghosting effect
+
+        pixels = greenScreen(pixels); // Mess with them
 
         ctx.putImageData(pixels, 0, 0) // Put them back
 
@@ -76,6 +80,36 @@ function rgbSplit(pixels) {
     }
     return pixels;
 }
+
+// Green screen
+function greenScreen(pixels) {
+    // Levels object for holding min/max green
+    const levels = {};
+
+    // Grab every rgb input and add to levels object with their values
+    document.querySelectorAll('.rgb input').forEach(input => levels[input.name] = input.value);
+
+    // Loop over pixels
+    for (i = 0; i < pixels.data.length; i += 4) {
+        // Get red, green, blue, and alpha
+        red = pixels.data[i + 0];
+        green = pixels.data[i + 1];
+        blue = pixels.data[i + 2];
+        alpha = pixels.data[i + 3];
+
+        // If it's anywhere in between the min and max values
+        if (red >= levels.rmin
+            && green >= levels.gmin
+            && blue >= levels.bmin
+            && red <= levels.rmax
+            && green <= levels.gmax
+            && blue <= levels.bmax) {
+                pixels.data[i + 3] = 0; // Take it out
+            }
+    }
+
+    return pixels;
+};
 
 getVideo();
 
