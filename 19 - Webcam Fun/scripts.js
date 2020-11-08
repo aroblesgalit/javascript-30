@@ -29,4 +29,22 @@ function paintToCanvas() {
     }, 16);
 }
 
+// Take a photo
+function takePhoto() {
+    snap.currentTime = 0;
+    // Play sound
+    snap.play();
+
+    // Take the data out of the canvas
+    const data = canvas.toDataURL('image/jpeg');
+    const link = document.createElement('a'); // Create a link
+    link.href = data; // Set href to the data
+    link.setAttribute('download', 'photo'); // Set download attribute
+    link.innerHTML = `<img src='${data}' alt='JS30-19th' />`; // Set innerHTML to an image
+    strip.insertBefore(link, strip.firstChild); // Insert the link into the strip element
+}
+
 getVideo();
+
+// Once video is played, run paintToCanvas
+video.addEventListener('canplay', paintToCanvas);
