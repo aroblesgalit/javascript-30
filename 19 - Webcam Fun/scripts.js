@@ -25,7 +25,15 @@ function paintToCanvas() {
     canvas.height = height;
     // Every 16 ms, take an image from webcam and paint to canvas
     return setInterval(() => {
+        // Get video for canvas
         ctx.drawImage(video, 0, 0, width, height);
+
+        // Get pixels for filter
+        let pixels = ctx.getImageData(0, 0, width, height); // Take pixels out
+        pixels = redEffect(pixels); // Mess with them
+        ctx.putImageData(pixels, 0, 0) // Put them back
+
+
     }, 16);
 }
 
@@ -42,6 +50,17 @@ function takePhoto() {
     link.setAttribute('download', 'photo'); // Set download attribute
     link.innerHTML = `<img src='${data}' alt='JS30-19th' />`; // Set innerHTML to an image
     strip.insertBefore(link, strip.firstChild); // Insert the link into the strip element
+}
+
+// Red Effect filter
+function redEffect(pixels) {
+    // Loop through pixels
+    for (let i = 0; i < pixels.data.length; i+=4) {
+        pixels.data[i + 0] += 100; // Red
+        pixels.data[i + 1] -= 50; // Green
+        pixels.data[i + 2] *= 0.5; // Blue
+    }
+    return pixels;
 }
 
 getVideo();
