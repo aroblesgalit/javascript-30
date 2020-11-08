@@ -30,7 +30,10 @@ function paintToCanvas() {
 
         // Get pixels for filter
         let pixels = ctx.getImageData(0, 0, width, height); // Take pixels out
-        pixels = redEffect(pixels); // Mess with them
+        // pixels = redEffect(pixels); // Mess with them
+        pixels = rgbSplit(pixels); // Mess with them
+        ctx.globalAlpha = 0.1; // Ghosting effect
+
         ctx.putImageData(pixels, 0, 0) // Put them back
 
 
@@ -55,10 +58,21 @@ function takePhoto() {
 // Red Effect filter
 function redEffect(pixels) {
     // Loop through pixels
-    for (let i = 0; i < pixels.data.length; i+=4) {
+    for (let i = 0; i < pixels.data.length; i += 4) {
         pixels.data[i + 0] += 100; // Red
         pixels.data[i + 1] -= 50; // Green
         pixels.data[i + 2] *= 0.5; // Blue
+    }
+    return pixels;
+}
+
+// RGB Split filter
+function rgbSplit(pixels) {
+    // Loop through pixels
+    for (let i = 0; i < pixels.data.length; i += 4) {
+        pixels.data[i - 150] = pixels.data[i + 0]; // Red
+        pixels.data[i + 100] = pixels.data[i + 1]; // Green
+        pixels.data[i + 150] = pixels.data[i + 2]; // Blue
     }
     return pixels;
 }
