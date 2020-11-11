@@ -27,6 +27,34 @@
 
   <script>
     // 👀👀👀👀👀👀👀👀👀👀👀👀👀👀👀
+
+    // Target all triggers
+    const triggers = document.querySelectorAll('a');
+
+    // Create a span element and add the class 'highlight' to it
+    const highlight = document.createElement('span');
+    highlight.classList.add('highlight');
+    document.body.append(highlight);
+
+    // Get the coordinates and height and width of each trigger and appy it to the highlight span
+    function highlightLink() {
+      const linkCoords = this.getBoundingClientRect();
+      // Factor in the X and Y scrolled position to the coordinates
+      const coords = {
+        width: linkCoords.width,
+        height: linkCoords.height,
+        top: linkCoords.top + window.scrollY,
+        left: linkCoords.left + window.scrollX
+      };
+      // Adjust the span's height, width, and position according to the coordinates
+      highlight.style.width =  `${coords.width}px`;
+      highlight.style.height =  `${coords.height}px`;
+      highlight.style.transform = `translate(${coords.left}px, ${coords.top}px)`;
+    }
+
+    // Hook the highlightLink function to a mouseenter event
+    triggers.forEach(a => a.addEventListener('mouseenter', highlightLink));
+
   </script>
 </body>
 </html>
