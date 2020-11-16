@@ -63,8 +63,12 @@
       slider.classList.remove('active');
     });
 
-    slider.addEventListener('mousemove', () => {
+    slider.addEventListener('mousemove', (e) => {
       if (!isDown) return; // stop the fn from running
+      e.preventDefault(); // Stops text from being selected
+      const x = e.pageX - slider.offsetLeft;
+      const walk = (x - startX) * 3; // how far we deviated from initial position
+      slider.scrollLeft = scrollLeft - walk;
     }); 
 
   </script>
