@@ -43,7 +43,7 @@
 
     // Take speed and add event listener of mousemove
     speed.addEventListener('mousemove', handleMove);
-
+    // Mouse events to redefine isDown value
     speed.addEventListener('mousedown', () => isDown = true);
     speed.addEventListener('mouseup', () => isDown = false);
     speed.addEventListener('mouseleave', () => isDown = false);
