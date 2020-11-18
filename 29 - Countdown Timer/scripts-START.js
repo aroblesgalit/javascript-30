@@ -4,7 +4,7 @@ const endTime = document.querySelector('.display__end-time');
 const buttons = document.querySelectorAll('[data-time]');
 
 function timer(seconds) {
-    clearInterval(countdown); // Reset timer
+    clearInterval(countdown); // Clear any existing timers
     const now = Date.now(); // Current time in milliseconds
     const then = now + (seconds * 1000); // Current time + the seconds
     displayTimeLeft(seconds); // Display current time
@@ -49,4 +49,13 @@ function startTimer() {
 
 // For each button with the data-time attribute
 // add a click event and run the startTimer
-buttons.forEach(button => button.addEventListener('click', startTimer))
+buttons.forEach(button => button.addEventListener('click', startTimer));
+
+// Add event listner to input field
+document.customForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const mins = parseInt(this.minutes.value);
+    const seconds = mins * 60;
+    this.reset(); // Resets input
+    timer(seconds);
+});
