@@ -36,6 +36,25 @@
   const holes = document.querySelectorAll('.hole');
   const scoreBoard = document.querySelector('.score');
   const moles = document.querySelectorAll('.mole');
+  let lastHole;
+
+  // Get random amount of time
+  function randTime(min, max) {
+    return Math.round(Math.random() * (max - min) + min);
+  }
+
+  // Get random hole
+  function randomHole(holes) {
+    const idx = Math.floor(Math.random() * holes.length); // random index
+    const hole = holes[idx]; // random hole based off of random idx
+    // Recursion if same hole as last one
+    if (hole === lastHole) {
+      return randomHole(holes);
+    }
+    // Set last hole to current hole
+    lastHole = hole;
+    return hole;
+  }
 
 </script>
 </body>
