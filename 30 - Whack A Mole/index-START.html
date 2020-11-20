@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Whack A Mole!</title>
   <link href='https://fonts.googleapis.com/css?family=Amatic+SC:400,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
   <h1>Whack-a-mole! <span class="score">0</span></h1>
@@ -32,30 +34,43 @@
     </div>
   </div>
 
-<script>
-  const holes = document.querySelectorAll('.hole');
-  const scoreBoard = document.querySelector('.score');
-  const moles = document.querySelectorAll('.mole');
-  let lastHole;
+  <script>
+    const holes = document.querySelectorAll('.hole');
+    const scoreBoard = document.querySelector('.score');
+    const moles = document.querySelectorAll('.mole');
+    let lastHole;
+    let timeUp = false;
 
-  // Get random amount of time
-  function randTime(min, max) {
-    return Math.round(Math.random() * (max - min) + min);
-  }
-
-  // Get random hole
-  function randomHole(holes) {
-    const idx = Math.floor(Math.random() * holes.length); // random index
-    const hole = holes[idx]; // random hole based off of random idx
-    // Recursion if same hole as last one
-    if (hole === lastHole) {
-      return randomHole(holes);
+    // Get random amount of time
+    function randomTime(min, max) {
+      return Math.round(Math.random() * (max - min) + min);
     }
-    // Set last hole to current hole
-    lastHole = hole;
-    return hole;
-  }
 
-</script>
+    // Get random hole
+    function randomHole(holes) {
+      const idx = Math.floor(Math.random() * holes.length); // random index
+      const hole = holes[idx]; // random hole based off of random idx
+      // Recursion if same hole as last one
+      if (hole === lastHole) {
+        return randomHole(holes);
+      }
+      // Set last hole to current hole
+      lastHole = hole;
+      return hole;
+    }
+
+    // Get mole to pop up
+    function peep() {
+      const time = randomTime(200, 1000);
+      const hole = randomHole(holes);
+      hole.classList.add('up');
+      setTimeout(() => {
+        hole.classList.remove('up');
+        if (!timeUp) peep(); // Keep running as long as timeUp is false
+      }, time)
+    }
+
+  </script>
 </body>
+
 </html>
