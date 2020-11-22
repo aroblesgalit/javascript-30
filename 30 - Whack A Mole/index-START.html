@@ -43,6 +43,7 @@
     let lastHole;
     let timeUp = false;
     let score = 0;
+    let level = 'normal';
 
     // Get random amount of time
     function randomTime(min, max) {
@@ -63,21 +64,34 @@
     }
 
     // Get mole to pop up
-    function peep() {
-      const time = randomTime(200, 1000);
+    function peep(level) {
+      let time;
+      switch(level) {
+        case 'easy':
+          time = randomTime(1000, 2000);
+          break;
+        case 'normal':
+          time = randomTime(400, 1000);
+          break;
+        case 'hard':
+          time = randomTime(250, 750);
+          break;
+        default:
+          time = randomTime(400, 1000);
+      }
       const hole = randomHole(holes);
       hole.classList.add('up');
       setTimeout(() => {
         hole.classList.remove('up');
-        if (!timeUp) peep(); // Keep running as long as timeUp is false
+        if (!timeUp) peep(level); // Keep running as long as timeUp is false
       }, time)
     }
 
-    function startGame() {
+    function startGame(level) {
       score = 0;
       scoreBoard.textContent = score;
       timeUp = false;
-      peep();
+      peep(level);
       setTimeout(() => timeUp = true, 10000)
     }
 
