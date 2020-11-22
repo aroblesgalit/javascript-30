@@ -11,8 +11,15 @@
 <body>
 
   <h1>Whack-a-mole! <span class="score">0</span></h1>
-  <div class="button-wrapper">
-    <button onClick="startGame()">Start!</button>
+  <div class="buttons">
+    <div>
+      <span>Level:</span>
+      <button data-level="easy" class="level-btn">easy</button>
+      <button data-level="normal" class="level-btn">normal</button>
+      <button data-level="hard" class="level-btn">hard</button>
+    </div>
+    <div class="arrow">&#8594;</div>
+    <button class="start-btn" onClick="startGame()">Start!</button>
   </div>
 
   <div class="game">
@@ -40,10 +47,12 @@
     const holes = document.querySelectorAll('.hole');
     const scoreBoard = document.querySelector('.score');
     const moles = document.querySelectorAll('.mole');
+    const levelButtons = document.querySelectorAll('[data-level]');
+
     let lastHole;
-    let timeUp = false;
+    let timeUp = null;
     let score = 0;
-    let level = 'normal';
+    let level;
 
     // Get random amount of time
     function randomTime(min, max) {
@@ -65,16 +74,17 @@
 
     // Get mole to pop up
     function peep(level) {
+      if (timeUp === null) return;
       let time;
-      switch(level) {
+      switch (level) {
         case 'easy':
-          time = randomTime(1000, 2000);
+          time = randomTime(600, 1250);
           break;
         case 'normal':
           time = randomTime(400, 1000);
           break;
         case 'hard':
-          time = randomTime(250, 750);
+          time = randomTime(200, 750);
           break;
         default:
           time = randomTime(400, 1000);
@@ -87,12 +97,18 @@
       }, time)
     }
 
-    function startGame(level) {
-      score = 0;
-      scoreBoard.textContent = score;
+    function startGame() {
+      resetGame();
       timeUp = false;
       peep(level);
       setTimeout(() => timeUp = true, 10000)
+    }
+
+    function resetGame() {
+      score = 0;
+      scoreBoard.textContent = score;
+      timeUp = null;
+      holes.forEach(hole => hole.classList.remove('up'));
     }
 
     function bonk(e) {
@@ -102,7 +118,16 @@
       this.parentNode.classList.remove('up'); // Remove the class up
     }
 
+    function setLevel() {
+      resetGame();
+      level = this.dataset.level;
+      levelButtons.forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+    }
+
     moles.forEach(mole => mole.addEventListener('click', bonk));
+
+    levelButtons.forEach(btn => btn.addEventListener('click', setLevel));
 
   </script>
 </body>
